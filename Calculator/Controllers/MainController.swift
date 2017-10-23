@@ -36,7 +36,7 @@ class MainController: UIViewController {
 	private func setupLayouts() {
 		_ = calculator.view.fill(.horizontaly, view)
 		_ = calculator.view.constraint(.bottom, to: view)
-		_ = calculator.view.constraint(.height, to: view, multiplier: 0.9)
+		_ = calculator.view.constraint(.height, to: view, multiplier: 0.75)
 		
 		_ = resultLabel.fill(.horizontaly, view, constant: 10)
 		_ = resultLabel.constraint(.bottom, to: calculator.view, .top, constant: 10)
