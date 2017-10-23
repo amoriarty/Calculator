@@ -9,17 +9,17 @@
 import UIKit
 
 class InputController: UIViewController, ButtonDelegate {
-	let inputView = InputView()
+	let input = InputView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 		view.translatesAutoresizingMaskIntoConstraints = false
 		view.backgroundColor = .white
 		
-		inputView.delegate = self
+		input.delegate = self
 		
-		view.addSubview(inputView)
-		_ = inputView.fill(view)
+		view.addSubview(input)
+		_ = input.fill(view)
     }
 	
 	func didTap(_ sender: ButtonView) {

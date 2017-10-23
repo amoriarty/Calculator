@@ -9,7 +9,7 @@
 import UIKit
 
 class MainController: UIViewController {
-	let calculator = CalculatorController()
+	let inputController = InputController()
 	
 	override var preferredStatusBarStyle: UIStatusBarStyle {
 		return .lightContent
@@ -27,19 +27,19 @@ class MainController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		view.addSubview(calculator.view)
+		view.addSubview(inputController.view)
 		view.addSubview(resultLabel)
 		
 		setupLayouts()
 	}
 	
 	private func setupLayouts() {
-		_ = calculator.view.fill(.horizontaly, view)
-		_ = calculator.view.constraint(.bottom, to: view)
-		_ = calculator.view.constraint(.height, to: view, multiplier: 0.75)
+		_ = inputController.view.fill(.horizontaly, view)
+		_ = inputController.view.constraint(.bottom, to: view)
+		_ = inputController.view.constraint(.height, to: view, multiplier: 0.75)
 		
 		_ = resultLabel.fill(.horizontaly, view, constant: 10)
-		_ = resultLabel.constraint(.bottom, to: calculator.view, .top, constant: 10)
+		_ = resultLabel.constraint(.bottom, to: inputController.view, .top, constant: 10)
 	}
 }
 

@@ -1,5 +1,5 @@
 //
-//  CalculatorView.swift
+//  InputView.swift
 //  Calculator
 //
 //  Created by Alexandre LEGENT on 23/10/2017.
@@ -8,8 +8,12 @@
 
 import UIKit
 
-class CalculatorView: UIStackView {
-	private let buttons = ["C", "+/-", "%", "/", "7", "8", "9", "x", "4", "5", "6", "-", "1", "2", "3", "+", "0", "", "", "="]
+class InputView: UIStackView {
+	private let texts = ["C", "+/-", "%", "/", "7", "8", "9", "x", "4", "5", "6", "-", "1", "2", "3", "+", "0", "", "", "="]
+	private var buttons = [ ButtonView ]()
+	weak var delegate: ButtonDelegate? {
+		didSet { buttons.forEach { (button) in button.delegate = delegate } }
+	}
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -31,7 +35,6 @@ class CalculatorView: UIStackView {
 			stack.translatesAutoresizingMaskIntoConstraints = false
 			for _ in 0...3 {
 				let button = setupButton(index)
-				
 				stack.addArrangedSubview(button)
 				index += 1
 			}
@@ -42,7 +45,7 @@ class CalculatorView: UIStackView {
 	private func setupButton(_ index: Int) -> ButtonView {
 		let button = ButtonView()
 		
-		button.setTitle(buttons[index], for: .normal)
+		button.setTitle(texts[index], for: .normal)
 		if index / 4 < 1 {
 			button.backgroundColor = .gray
 		}
@@ -50,6 +53,7 @@ class CalculatorView: UIStackView {
 			button.backgroundColor = .orange
 			button.setTitleColor(.white, for: .normal)
 		}
+		buttons.append(button)
 		return button
 	}
 	
