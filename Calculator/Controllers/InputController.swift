@@ -23,6 +23,7 @@ class InputController: UIViewController, ButtonDelegate {
     }
 	
 	func didTap(_ sender: ButtonView) {
-		print("EVERYBODY DO THE DROP")
+		guard let text = sender.titleLabel?.text else { return }
+		print(text)
 	}
 }

@@ -34,11 +34,13 @@ class MainController: UIViewController {
 	}
 	
 	private func setupLayouts() {
-		_ = inputController.view.fill(.horizontaly, view)
-		_ = inputController.view.constraint(.bottom, to: view)
-		_ = inputController.view.constraint(.height, to: view, multiplier: 0.75)
+		inputController.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+		inputController.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+		inputController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+		inputController.view.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.75).isActive = true
 		
-		_ = resultLabel.fill(.horizontaly, view, constant: 10)
+		_ = resultLabel.constraint(.leading, to: inputController.view)
+		_ = resultLabel.constraint(.trailing, to: inputController.view)
 		_ = resultLabel.constraint(.bottom, to: inputController.view, .top, constant: 10)
 	}
 }

@@ -80,7 +80,7 @@ extension UIView {
 			}
 		}
 		
-		let constraint = NSLayoutConstraint(item: safeAreaLayoutGuide, attribute: attribute, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: parentAttribute, multiplier: multiplier, constant: constant * inverse)
+		let constraint = NSLayoutConstraint(item: self, attribute: attribute, relatedBy: .equal, toItem: view, attribute: parentAttribute, multiplier: multiplier, constant: constant * inverse)
 		
 		constraint.isActive = active
 		return constraint
