@@ -8,8 +8,10 @@
 
 import UIKit
 
-class MainController: UIViewController, ButtonDelegate {
+class MainController: UIViewController, ButtonDelegate, CalculatorDelegate {
 	let buttonsView = ButtonsView()
+	let calculator = CalculatorController()
+	var shouldClear = false
 	
 	override var preferredStatusBarStyle: UIStatusBarStyle {
 		return .lightContent
@@ -30,6 +32,7 @@ class MainController: UIViewController, ButtonDelegate {
 		view.addSubview(buttonsView)
 		view.addSubview(resultLabel)
 		buttonsView.delegate = self
+		calculator.delegate = self
 		setupLayouts()
 	}
 	
@@ -45,7 +48,43 @@ class MainController: UIViewController, ButtonDelegate {
 	
 	func didTap(_ sender: ButtonView) {
 		guard let title = sender.title, title != "" else { return }
-		print("\(title)")
+		guard let char = title.first else { return }
+
+		switch title {
+		case "+/-":
+			print("TOGGLE +/-")
+		case "C":
+			resultLabel.text = "0"
+			calculator.reset()
+		case "=":
+			calculator.set(with: resultLabel.text!)
+		case "+", "/", "x", "-":
+			calculator.operation = title
+			shouldClear = true
+			guard resultLabel.text! != "0" else { return }
+			calculator.set(with: resultLabel.text!)
+		case "0":
+			if resultLabel.text! == "0" { return }
+			else { resultLabel.text?.append(char) }
+		default:
+			if shouldClear {
+				resultLabel.text = "0"
+				shouldClear = false
+			}
+			if resultLabel.text! == "0" { resultLabel.text? = title }
+			else { resultLabel.text?.append(char) }
+		}
+	}
+	
+	func have(_ result: String) {
+		resultLabel.text = result
+		shouldClear = true
+	}
+	
+	func divisionByZero() {
+		resultLabel.text = "Error"
+		shouldClear = true
+		calculator.reset()
 	}
 }
 
