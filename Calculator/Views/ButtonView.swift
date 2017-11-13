@@ -14,17 +14,33 @@ protocol ButtonDelegate: class {
 
 class ButtonView: UIButton {
 	weak var delegate: ButtonDelegate?
+	var title: String? {
+		didSet {
+			setTitle(title, for: .normal)
+			titleLabel?.textAlignment = .center
+		}
+	}
+	
+	var index: Int? {
+		didSet {
+			guard let index = index else { return }
+			
+			if index / 4 < 1 {
+				backgroundColor = .gray
+			}
+			if index % 4 == 3 {
+				backgroundColor = .orange
+				setTitleColor(.white, for: .normal)
+			}
+		}
+	}
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		translatesAutoresizingMaskIntoConstraints = false
-
-		titleLabel?.textAlignment = .center
 		setTitleColor(.black, for: .normal)
-	
 		layer.borderColor = UIColor.black.cgColor
 		layer.borderWidth = 0.5
-		
 		addTarget(self, action: #selector(didTap), for: .touchUpInside)
 	}
 	

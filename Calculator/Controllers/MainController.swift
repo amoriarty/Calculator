@@ -8,8 +8,8 @@
 
 import UIKit
 
-class MainController: UIViewController {
-	let inputController = InputController()
+class MainController: UIViewController, ButtonDelegate {
+	let buttonsView = ButtonsView()
 	
 	override var preferredStatusBarStyle: UIStatusBarStyle {
 		return .lightContent
@@ -27,21 +27,25 @@ class MainController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		view.addSubview(inputController.view)
+		view.addSubview(buttonsView)
 		view.addSubview(resultLabel)
-		
+		buttonsView.delegate = self
 		setupLayouts()
 	}
 	
 	private func setupLayouts() {
-		inputController.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-		inputController.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-		inputController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-		inputController.view.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.75).isActive = true
-		
-		_ = resultLabel.constraint(.leading, to: inputController.view)
-		_ = resultLabel.constraint(.trailing, to: inputController.view)
-		_ = resultLabel.constraint(.bottom, to: inputController.view, .top, constant: 10)
+		buttonsView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+		buttonsView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+		buttonsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+		buttonsView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.75).isActive = true
+		_ = resultLabel.constraint(.leading, to: buttonsView)
+		_ = resultLabel.constraint(.trailing, to: buttonsView)
+		_ = resultLabel.constraint(.bottom, to: buttonsView, .top, constant: 10)
+	}
+	
+	func didTap(_ sender: ButtonView) {
+		guard let title = sender.title, title != "" else { return }
+		print("\(title)")
 	}
 }
 

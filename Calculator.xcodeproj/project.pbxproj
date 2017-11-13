@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EC0BE1A11F9E011200BE1487 /* InputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC0BE1A01F9E011200BE1487 /* InputController.swift */; };
 		EC0BE1A31F9E1F1F00BE1487 /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC0BE1A21F9E1F1F00BE1487 /* ButtonView.swift */; };
-		EC0BE1A51F9E28D800BE1487 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC0BE1A41F9E28D800BE1487 /* InputView.swift */; };
+		EC0BE1A51F9E28D800BE1487 /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC0BE1A41F9E28D800BE1487 /* ButtonsView.swift */; };
 		ECFD2C5D1F9DF6E700313E90 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFD2C5C1F9DF6E700313E90 /* AppDelegate.swift */; };
 		ECFD2C5F1F9DF6E700313E90 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFD2C5E1F9DF6E700313E90 /* MainController.swift */; };
 		ECFD2C641F9DF6E700313E90 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECFD2C631F9DF6E700313E90 /* Assets.xcassets */; };
@@ -18,9 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		EC0BE1A01F9E011200BE1487 /* InputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputController.swift; sourceTree = "<group>"; };
 		EC0BE1A21F9E1F1F00BE1487 /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
-		EC0BE1A41F9E28D800BE1487 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
+		EC0BE1A41F9E28D800BE1487 /* ButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
 		ECFD2C591F9DF6E700313E90 /* Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECFD2C5C1F9DF6E700313E90 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ECFD2C5E1F9DF6E700313E90 /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
@@ -75,7 +73,6 @@
 			isa = PBXGroup;
 			children = (
 				ECFD2C5E1F9DF6E700313E90 /* MainController.swift */,
-				EC0BE1A01F9E011200BE1487 /* InputController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -91,7 +88,7 @@
 		ECFD2C701F9DFB6A00313E90 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				EC0BE1A41F9E28D800BE1487 /* InputView.swift */,
+				EC0BE1A41F9E28D800BE1487 /* ButtonsView.swift */,
 				EC0BE1A21F9E1F1F00BE1487 /* ButtonView.swift */,
 			);
 			path = Views;
@@ -172,8 +169,7 @@
 				ECFD2C721F9DFBAA00313E90 /* UIView.swift in Sources */,
 				EC0BE1A31F9E1F1F00BE1487 /* ButtonView.swift in Sources */,
 				ECFD2C5D1F9DF6E700313E90 /* AppDelegate.swift in Sources */,
-				EC0BE1A51F9E28D800BE1487 /* InputView.swift in Sources */,
-				EC0BE1A11F9E011200BE1487 /* InputController.swift in Sources */,
+				EC0BE1A51F9E28D800BE1487 /* ButtonsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
