@@ -108,10 +108,5 @@ final class MainController: UIViewController, UICollectionViewDelegate, UICollec
             calculator.press(button)
         }
     }
-    
-    // MARK:- Calculator Delegate
-    func set(text: String) {
-        printedLabel.text = text
-    }
 }
 

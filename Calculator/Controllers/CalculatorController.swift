@@ -29,9 +29,12 @@ final class CalculatorController {
     
     // MARK:- Accessor
     func press(_ button: String) {
+        print("[DEBUG]: BUTTON PRESSED \(button)")
+        
         switch button {
         case "0", "1", "2", "3", "4", "5", "6", "7", "8", "9": press(digit: button)
         case "+", "-", "x", "/": press(operatr: button)
+        case "+/-": pressInvers()
         case "=": pressEqual()
         case "C": reset()
         default: break
@@ -40,6 +43,7 @@ final class CalculatorController {
     
     // MARK:- Logics
     private func press(digit: String) {
+        if mode { currentOperator = nil }
         mode = false
         
         /* If left isn't defined, add current digit to it. */
@@ -77,7 +81,8 @@ final class CalculatorController {
         }
         
         pressEqual()
-        self.right = nil
+        mode = false
+        right = nil
     }
     
     private func pressEqual() {
@@ -108,6 +113,24 @@ final class CalculatorController {
         self.left = sResult
         delegate?.printed = sResult
         mode = true
+    }
+    
+    private func pressInvers() {
+        /* If right doesn't exist, same procedure but with left instead. */
+        guard let right = right, right != "", right != "0", !mode else {
+            guard let left = left, left != "", left != "0" else { return }
+            guard let iLeft = Int(left) else { return }
+            let value = iLeft * -1
+            self.left = String(value)
+            delegate?.printed = self.left
+            return
+        }
+        
+        /* Convert value in Int, then invers it and cast it back to string */
+        guard let iRight = Int(right) else { return }
+        let value = iRight * -1
+        self.right = String(value)
+        delegate?.printed = self.right
     }
     
     private func presentError() {
