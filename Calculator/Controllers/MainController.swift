@@ -8,15 +8,17 @@
 
 import UIKit
 
-class MainController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CalculatorDelegate {
+final class MainController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CalculatorDelegate {
     override var preferredStatusBarStyle: UIStatusBarStyle { return .lightContent }
-    private let buttons = ["C", "+/-", "", "/", "7", "8", "9", "x", "4", "5", "6", "-", "1", "2", "3", "+", "", "0", "", "="]
+    private let calculator = CalculatorController()
     private let reuseid = "ButtonCell"
-	private let calculator = CalculatorController()
-	private var shouldClear = false
+    private let buttons = ["C", "+/-", "", "/", "7", "8", "9", "x", "4", "5", "6", "-", "1", "2", "3", "+", "", "0", "", "="]
+    var printed: String? {
+        didSet { printedLabel.text = printed }
+    }
 	
     // MARK:- Views
-	private let resultLabel: UILabel = {
+	private let printedLabel: UILabel = {
 		let label = UILabel()
 		label.text = "0"
 		label.textAlignment = .right
@@ -37,20 +39,31 @@ class MainController: UIViewController, UICollectionViewDelegate, UICollectionVi
     // MARK:- View lifecycle
 	override func viewDidLoad() {
 		super.viewDidLoad()
-        view.addSubview(collectionView)
-		view.addSubview(resultLabel)
-        collectionView.register(ButtonCell.self, forCellWithReuseIdentifier: reuseid)
-		calculator.delegate = self
+        setupViews()
 		setupLayouts()
+        calculator.delegate = self
+        collectionView.register(ButtonCell.self, forCellWithReuseIdentifier: reuseid)
 	}
+    
+    /* This function, call when device rotate, will force collection view to resize every cell */
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        coordinator.animate(alongsideTransition: { [unowned self] _ in
+            self.collectionView.collectionViewLayout.invalidateLayout()
+        }, completion: nil)
+    }
 	
     // MARK:- Setups
+    private func setupViews() {
+        view.addSubview(collectionView)
+        view.addSubview(printedLabel)
+    }
+    
 	private func setupLayouts() {
         _ = collectionView.fill(.horizontaly, view.safeAreaLayoutGuide)
         _ = collectionView.constraint(.bottom, to: view.safeAreaLayoutGuide)
         _ = collectionView.constraint(.height, to: view.safeAreaLayoutGuide, multiplier: 0.75)
-        _ = resultLabel.fill(.horizontaly, collectionView)
-		_ = resultLabel.constraint(.bottom, to: collectionView, .top, constant: 10)
+        _ = printedLabel.fill(.horizontaly, collectionView)
+		_ = printedLabel.constraint(.bottom, to: collectionView, .top, constant: 10)
 	}
     
     // MARK:- Collection View Delegate
@@ -91,41 +104,14 @@ class MainController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let button = buttons[indexPath.item]
         
-        switch button {
-        case "+/-": break // TODO: Implement +/-
-        case "=": calculator.set(with: resultLabel.text!)
-        case "C":
-            resultLabel.text = "0"
-            calculator.reset()
-        case "+", "/", "x", "-":
-            calculator.operation = title
-            shouldClear = true
-            guard resultLabel.text! != "0" else { return }
-            calculator.set(with: resultLabel.text!)
-        case "0":
-            if resultLabel.text! == "0" { return }
-            else { resultLabel.text?.append(button) }
-        default:
-            if shouldClear {
-                resultLabel.text = "0"
-                shouldClear = false
-            }
-            if resultLabel.text! == "0" { resultLabel.text? = button }
-            else { resultLabel.text?.append(button) }
+        if button != "" {
+            calculator.press(button)
         }
-
     }
     
     // MARK:- Calculator Delegate
-    func have(_ result: String) {
-        resultLabel.text = result
-        shouldClear = true
-    }
-    
-    func divisionByZero() {
-        resultLabel.text = "Error"
-        shouldClear = true
-        calculator.reset()
+    func set(text: String) {
+        printedLabel.text = text
     }
 }
 
